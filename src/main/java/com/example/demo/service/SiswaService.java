@@ -50,7 +50,8 @@ public class SiswaService {
         return siswaRepository.findByFirstName(firstName);
        }
 
-       public Siswa getByFirstNameAndLAstName (String firstName, String lastName){
+       public Siswa getByFirstNameAndLastName(String firstName, String lastName){
+            return siswaRepository.findByFirstNameAndLastName(firstName, lastName);
 
        }
 

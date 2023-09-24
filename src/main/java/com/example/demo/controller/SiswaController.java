@@ -7,9 +7,7 @@ import com.example.demo.request.UpdateSiswaRequest;
 import com.example.demo.response.SiswaResponse;
 import com.example.demo.service.SiswaService;
 import jakarta.validation.Valid;
-import org.hibernate.internal.util.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.xml.SimpleSaxErrorHandler;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -97,7 +95,7 @@ public class SiswaController {
     @GetMapping("getByFirstNameAndLastName/{firstName}/{lastName}")
     public SiswaResponse getByFirstNameAndLastName(@PathVariable String firstName, @PathVariable String lastName){
 
-
+        return new SiswaResponse(siswaService.getByFirstNameAndLastName(firstName,lastName));
     }
 
 
