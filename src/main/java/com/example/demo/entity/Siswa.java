@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 
+import com.example.demo.request.CreateSiswaRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import lombok.Setter;
 public class Siswa {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
     private Long id;
 
@@ -29,4 +30,10 @@ public class Siswa {
 
     @Column(name ="email")
     private String email;
+
+    public Siswa(CreateSiswaRequest createSiswaRequest) {
+        this.firstName = createSiswaRequest.getFirstName();
+        this.lastName = createSiswaRequest.getLastName();
+        this.email = createSiswaRequest.getEmail();
+    }
 }
