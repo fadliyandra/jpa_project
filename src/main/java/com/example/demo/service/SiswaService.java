@@ -4,8 +4,12 @@ package com.example.demo.service;
 import com.example.demo.entity.Siswa;
 import com.example.demo.repository.SiswaRepository;
 import com.example.demo.request.CreateSiswaRequest;
+import com.example.demo.request.InQueryRequest;
 import com.example.demo.request.UpdateSiswaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,9 +55,51 @@ public class SiswaService {
        }
 
        public Siswa getByFirstNameAndLastName(String firstName, String lastName){
-            return siswaRepository.findByFirstNameAndLastName(firstName, lastName);
+           // return siswaRepository.findByLastNameAndFirstName(firstName, lastName);
+           return siswaRepository.getByLastNameAndFirstName(lastName, firstName);
 
        }
+
+       public  List<Siswa> getByFirstNameOrLastName (String firstName, String lastName) {
+           return siswaRepository.findByFirstNameOrLastName(firstName, lastName);
+       }
+
+        public  List<Siswa> getByFirstNameIn (InQueryRequest inQueryRequest) {
+            return siswaRepository.findByFirstNameIn(inQueryRequest.getFirstNames());
+        }
+
+        public List<Siswa> getAllSiswaWithPagination(int pageNo, int pageSize){
+            Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+
+            return siswaRepository.findAll(pageable).getContent();
+        }
+
+
+        public List<Siswa> getAllSiswaWithSorting(){
+            Sort sort = Sort.by(Sort.Direction.ASC, "firstName");
+
+            return siswaRepository.findAll(sort);
+        }
+
+        public List<Siswa> like(String firstName){
+
+            return siswaRepository.findByFirstNameContains(firstName);
+        }
+
+
+        public List<Siswa> startsWith(String firstName){
+        return siswaRepository.findByFirstNameStartsWith(firstName);
+
+        }
+
+        public Integer updateStudentWithJpql (Long id, String firstName){
+            return siswaRepository.updateFirstName(id, firstName);
+
+        }
+
+
+
+
 
 
 }

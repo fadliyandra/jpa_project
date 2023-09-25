@@ -31,9 +31,14 @@ public class Siswa {
     @Column(name ="email")
     private String email;
 
+    @Transient
+    private String fullName;
+
+
     public Siswa(CreateSiswaRequest createSiswaRequest) {
         this.firstName = createSiswaRequest.getFirstName();
         this.lastName = createSiswaRequest.getLastName();
         this.email = createSiswaRequest.getEmail();
-    }
+        this.fullName = createSiswaRequest.getFirstName() + " " + createSiswaRequest.getLastName();
+     }
 }

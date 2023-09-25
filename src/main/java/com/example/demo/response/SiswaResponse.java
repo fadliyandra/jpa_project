@@ -21,12 +21,15 @@ public class SiswaResponse {
 
     private String email;
 
+    private String fullName;
+
     public SiswaResponse (Siswa siswa){
 
         this.id = siswa.getId();
         this.firstName= siswa.getFirstName();
         this.lastName = siswa.getLastName();
         this.email = siswa.getEmail();
+        this.fullName = siswa.getFirstName() + " " + siswa.getLastName();
     }
 
 
