@@ -21,7 +21,10 @@ public class SiswaResponse {
 
     private String email;
 
-    private String fullName;
+    private String street;
+
+    private String city;
+
 
     public SiswaResponse (Siswa siswa){
 
@@ -29,7 +32,12 @@ public class SiswaResponse {
         this.firstName= siswa.getFirstName();
         this.lastName = siswa.getLastName();
         this.email = siswa.getEmail();
-        this.fullName = siswa.getFirstName() + " " + siswa.getLastName();
+
+        this.street = siswa.getAddress().getStreet();
+        this.city = siswa.getAddress().getCity();
+
+
+
     }
 
 

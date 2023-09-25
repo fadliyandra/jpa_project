@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 
+import com.example.demo.entity.Address;
 import com.example.demo.entity.Siswa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -36,6 +37,16 @@ public interface SiswaRepository extends JpaRepository<Siswa, Long> {
   @Transactional
   @Query("Update Siswa set firstName = :firstName where id = :id")
   Integer updateFirstName (Long id, String firstName);
+
+  @Modifying
+  @Transactional
+  @Query("Delete From Siswa where firstName = :firstName")
+  Integer deletebyFirstName (String firstName);
+
+  List<Siswa> findByAddressCity(String city);
+
+  @Query("From Siswa where address.city = :city")
+  List<Siswa> getByAddressCity (String city);
 
 
 }

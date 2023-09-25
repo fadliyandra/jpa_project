@@ -18,6 +18,10 @@ public class CreateSiswaRequest {
 
     private String email;
 
+    private String street;
+
+    private String city;
+
 
 
 }

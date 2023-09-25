@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 
+import com.example.demo.entity.Address;
 import com.example.demo.entity.Siswa;
+import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.SiswaRepository;
 import com.example.demo.request.CreateSiswaRequest;
 import com.example.demo.request.InQueryRequest;
@@ -21,6 +23,9 @@ public class SiswaService {
     @Autowired
     SiswaRepository siswaRepository;
 
+    @Autowired
+    AddressRepository addressRepository;
+
     public List<Siswa> getAllSiswa(){
        return siswaRepository.findAll();
     }
@@ -28,6 +33,13 @@ public class SiswaService {
     public Siswa createSiswa(CreateSiswaRequest createSiswaRequest){
         Siswa siswa = new Siswa(createSiswaRequest);
 
+        Address address = new Address();
+        address.setStreet(createSiswaRequest.getStreet());
+        address.setCity(createSiswaRequest.getCity());
+
+        address = addressRepository.save(address);
+
+        siswa.setAddress(address);
         siswa = siswaRepository.save(siswa);
         return siswa;
 
@@ -94,6 +106,16 @@ public class SiswaService {
 
         public Integer updateStudentWithJpql (Long id, String firstName){
             return siswaRepository.updateFirstName(id, firstName);
+
+        }
+
+        public Integer deleteSiswa (String firstName){
+        return siswaRepository.deletebyFirstName(firstName);
+
+        }
+
+        public List<Siswa> getByCity(String city){
+        return siswaRepository.getByAddressCity(city);
 
         }
 

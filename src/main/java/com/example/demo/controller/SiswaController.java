@@ -184,7 +184,20 @@ public class SiswaController {
 
         @DeleteMapping("deleteByFirstName/{firstName}")
         public String deleteStudent (@PathVariable String firstName){
-           // return siswaService.deleteSiswa(firstName) + "siswa(s) deleted";
+            return siswaService.deleteSiswa(firstName) + "siswa(s) deleted";
+        }
+
+        @GetMapping("/by-city/{city}")
+        public List<SiswaResponse> getByCity(@PathVariable String city){
+        List<Siswa> siswaList = siswaService.getByCity(city);
+
+        List<SiswaResponse> siswaResponseList = new ArrayList<SiswaResponse>();
+
+        siswaList.stream().forEach(siswa -> {
+            siswaResponseList.add(new SiswaResponse(siswa));
+        });
+        return siswaResponseList;
+
         }
 
 

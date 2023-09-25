@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -31,14 +33,19 @@ public class Siswa {
     @Column(name ="email")
     private String email;
 
-    @Transient
-    private String fullName;
 
+    //@OneToOne(fetch = FetchType.LAZY) ???
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @OneToMany(mappedBy = "siswa")
+    private List<Subject> learningSubject;
 
     public Siswa(CreateSiswaRequest createSiswaRequest) {
         this.firstName = createSiswaRequest.getFirstName();
         this.lastName = createSiswaRequest.getLastName();
         this.email = createSiswaRequest.getEmail();
-        this.fullName = createSiswaRequest.getFirstName() + " " + createSiswaRequest.getLastName();
+
      }
 }
