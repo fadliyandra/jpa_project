@@ -8,6 +8,8 @@ import com.example.demo.request.UpdateSiswaRequest;
 import com.example.demo.response.SiswaResponse;
 import com.example.demo.service.SiswaService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/siswa/")
 public class SiswaController {
+
+    Logger logger = LoggerFactory.getLogger(SiswaController.class);
 
 //    @Value("${app.name:Default Demo App}")
 //    private String appName;
@@ -43,6 +47,14 @@ public class SiswaController {
 
     @GetMapping("getAll")
     public List<SiswaResponse> getAllSiswa(){
+        logger.error("Inside Error");
+        logger.warn("Inside Waring");
+        logger.info("Inside Info");
+        logger.debug("inside Debug");
+        logger.trace("Inside Trace");
+
+
+
        List<Siswa> siswaList = siswaService.getAllSiswa();
        List<SiswaResponse> siswaResponseList = new ArrayList<SiswaResponse>();
 
@@ -60,6 +72,8 @@ public class SiswaController {
         return new SiswaResponse(siswa);
 
     }
+
+
 
     @PutMapping("update")
     public SiswaResponse updateSiswa (@Valid @RequestBody UpdateSiswaRequest updateSiswaRequest){
@@ -116,8 +130,11 @@ public class SiswaController {
         return siswaResponseList;
     }
 
-    @GetMapping("getByFirstNameIn")
+    @GetMapping("get-by-first-name-in")
     public List<SiswaResponse> getByFirstNameIn(@RequestBody InQueryRequest inQueryRequest){
+
+
+        logger.info("inqueryRequest = " + inQueryRequest);
 
         List<Siswa> siswaList = siswaService.getByFirstNameIn(inQueryRequest);
         List<SiswaResponse> siswaResponseList = new ArrayList<SiswaResponse>();
@@ -125,9 +142,14 @@ public class SiswaController {
         siswaList.stream().forEach(siswa -> {
             siswaResponseList.add(new SiswaResponse(siswa));
         });
+
+        logger.info("siswaResponseList = " + siswaResponseList);
+
         return siswaResponseList;
 
     }
+
+
         @GetMapping("getAllPagination")
         public List<SiswaResponse> getAllSiswaWithPagination(@RequestParam int pageNo, @RequestParam int pageSize){
 

@@ -7,11 +7,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
+
 @SpringBootApplication
 //@ComponentScan("com.example.*")
 @ComponentScan({"com.example","com.example.service"})
 @EntityScan("com.example.demo.entity")
 @EnableJpaRepositories("com.example.demo.repository")
+//@EnableSwagger2
 public class DemoJpaApplication {
 
 

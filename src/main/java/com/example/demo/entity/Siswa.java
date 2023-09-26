@@ -39,8 +39,10 @@ public class Siswa {
     @JoinColumn(name = "address_id")
     private Address address;
 
+
+
     @OneToMany(mappedBy = "siswa")
-    private List<Subject> learningSubject;
+    private List<Subject> learningSubjects;
 
     public Siswa(CreateSiswaRequest createSiswaRequest) {
         this.firstName = createSiswaRequest.getFirstName();

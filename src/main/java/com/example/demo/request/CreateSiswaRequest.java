@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class CreateSiswaRequest {
@@ -21,6 +23,9 @@ public class CreateSiswaRequest {
     private String street;
 
     private String city;
+
+    private List<CreateSubjectRequest> subjectsLearning;
+
 
 
 

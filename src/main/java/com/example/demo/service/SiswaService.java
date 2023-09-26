@@ -3,9 +3,12 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Address;
 import com.example.demo.entity.Siswa;
+import com.example.demo.entity.Subject;
 import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.SiswaRepository;
+import com.example.demo.repository.SubjectRepository;
 import com.example.demo.request.CreateSiswaRequest;
+import com.example.demo.request.CreateSubjectRequest;
 import com.example.demo.request.InQueryRequest;
 import com.example.demo.request.UpdateSiswaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,9 +30,14 @@ public class SiswaService {
     @Autowired
     AddressRepository addressRepository;
 
+    @Autowired
+    SubjectRepository subjectRepository;
+
     public List<Siswa> getAllSiswa(){
        return siswaRepository.findAll();
     }
+
+
 
     public Siswa createSiswa(CreateSiswaRequest createSiswaRequest){
         Siswa siswa = new Siswa(createSiswaRequest);
@@ -41,6 +50,25 @@ public class SiswaService {
 
         siswa.setAddress(address);
         siswa = siswaRepository.save(siswa);
+
+        List<Subject> subjectList = new ArrayList<Subject>();
+
+        if (createSiswaRequest.getSubjectsLearning() != null){
+
+            for (CreateSubjectRequest createSubjectRequest :
+            createSiswaRequest.getSubjectsLearning()){
+                Subject subject = new Subject();
+                subject.setSubjectName(createSubjectRequest.getSubjectName());
+                subject.setMarksObtained(createSubjectRequest.getMarksObtained());
+                subject.setSiswa(siswa);
+
+                subjectList.add(subject);
+
+            }
+            subjectRepository.saveAll(subjectList);
+        }
+        siswa.setLearningSubjects(subjectList);
+
         return siswa;
 
     }
