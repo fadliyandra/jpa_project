@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/api/siswa/")
 public class SiswaController {
 
-    Logger logger = LoggerFactory.getLogger(SiswaController.class);
+
 
 //    @Value("${app.name:Default Demo App}")
 //    private String appName;
@@ -45,43 +45,39 @@ public class SiswaController {
 
 
 
-    @GetMapping("getAll")
-    public List<SiswaResponse> getAllSiswa(){
-        logger.error("Inside Error");
-        logger.warn("Inside Waring");
-        logger.info("Inside Info");
-        logger.debug("inside Debug");
-        logger.trace("Inside Trace");
+    @GetMapping("all")
+    public List<SiswaResponse> getAllSiswa(){   //method
 
 
-
-       List<Siswa> siswaList = siswaService.getAllSiswa();
-       List<SiswaResponse> siswaResponseList = new ArrayList<SiswaResponse>();
+       List<Siswa> siswaList = siswaService.getAllSiswa();   //iterasis setian eleement siswa list
+       List<SiswaResponse> siswaResponseList = new ArrayList<SiswaResponse>();  //membuat object arraylist dengan tipe siswa response
 
        siswaList.stream().forEach(siswa ->{
-           siswaResponseList.add(new SiswaResponse(siswa));
+           siswaResponseList.add(new SiswaResponse(siswa));  //??
        });
        return siswaResponseList;
 
     }
 
     @PostMapping("create")
-    public SiswaResponse createSiswa (@Valid @RequestBody CreateSiswaRequest createSiswaRequest){
-        Siswa siswa = siswaService.createSiswa(createSiswaRequest);
+    public SiswaResponse createSiswa (@Valid @RequestBody CreateSiswaRequest createSiswaRequest){  //menerima create sisawa requesy
+        Siswa siswa = siswaService.createSiswa(createSiswaRequest);  //membuat object
 
-        return new SiswaResponse(siswa);
+        return new SiswaResponse(siswa); //kembalian
 
     }
 
 
 
     @PutMapping("update")
-    public SiswaResponse updateSiswa (@Valid @RequestBody UpdateSiswaRequest updateSiswaRequest){
-        Siswa siswa = siswaService.updateSiswa(updateSiswaRequest);
-        return new SiswaResponse(siswa);
+    public SiswaResponse updateSiswa (@Valid @RequestBody UpdateSiswaRequest updateSiswaRequest){  //method
+        Siswa siswa = siswaService.updateSiswa(updateSiswaRequest);  //pemabruan data berdasarkan updateSiswaRequest
+        return new SiswaResponse(siswa);  //d kembalikan menjasi object siswa response
     }
 
-    @PutMapping("updateFirstName/{id}/{firstName}")
+
+
+    @PutMapping("update-firstname/{id}/{firstName}")
     public String updateSiswaWithJpql (@PathVariable Long id, @PathVariable String firstName){
         return siswaService.updateStudentWithJpql(id, firstName) + " Student(s) update";
     }
@@ -97,6 +93,9 @@ public class SiswaController {
     public String deleteSiswa(@PathVariable long id){
         return siswaService.deleteSiswa(id);
     }
+
+
+
 
     @GetMapping("getByFirstName/{firstName}")
     public List<SiswaResponse> getByFirstName(@PathVariable String firstName){
@@ -134,7 +133,7 @@ public class SiswaController {
     public List<SiswaResponse> getByFirstNameIn(@RequestBody InQueryRequest inQueryRequest){
 
 
-        logger.info("inqueryRequest = " + inQueryRequest);
+
 
         List<Siswa> siswaList = siswaService.getByFirstNameIn(inQueryRequest);
         List<SiswaResponse> siswaResponseList = new ArrayList<SiswaResponse>();
@@ -143,7 +142,7 @@ public class SiswaController {
             siswaResponseList.add(new SiswaResponse(siswa));
         });
 
-        logger.info("siswaResponseList = " + siswaResponseList);
+
 
         return siswaResponseList;
 

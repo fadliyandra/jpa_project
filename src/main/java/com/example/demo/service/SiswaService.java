@@ -39,51 +39,53 @@ public class SiswaService {
 
 
 
-    public Siswa createSiswa(CreateSiswaRequest createSiswaRequest){
-        Siswa siswa = new Siswa(createSiswaRequest);
+    public Siswa createSiswa(CreateSiswaRequest createSiswaRequest){  //deklarasi method menerima create siswa request, membuat object siswa berdasar data yang di terima
+        Siswa siswa = new Siswa(createSiswaRequest);  //ocject siswa baru di buat mennggnakan constructor yang menerima crate siswa request
 
-        Address address = new Address();
-        address.setStreet(createSiswaRequest.getStreet());
-        address.setCity(createSiswaRequest.getCity());
+        Address address = new Address();  //object adddres baru di buat
+        address.setStreet(createSiswaRequest.getStreet()); // data street di atur ke dalam address
+        address.setCity(createSiswaRequest.getCity()); //data city di atur ke dalam object address
 
-        address = addressRepository.save(address);
+        address = addressRepository.save(address); // disimpan ke dalam repository, menghasilkan id unik
 
-        siswa.setAddress(address);
-        siswa = siswaRepository.save(siswa);
+        siswa.setAddress(address); //di hubugkan object siswa yang telah di buat denag address yang telah di simpan
+        siswa = siswaRepository.save(siswa); // obeject siswa  di simpan dalam repository
 
-        List<Subject> subjectList = new ArrayList<Subject>();
+        List<Subject> subjectList = new ArrayList<Subject>();  //buat object array list berupa subject list
 
         if (createSiswaRequest.getSubjectsLearning() != null){
 
-            for (CreateSubjectRequest createSubjectRequest :
+            for (CreateSubjectRequest a :  // variable yang di ulang
             createSiswaRequest.getSubjectsLearning()){
-                Subject subject = new Subject();
-                subject.setSubjectName(createSubjectRequest.getSubjectName());
-                subject.setMarksObtained(createSubjectRequest.getMarksObtained());
+                Subject subject = new Subject();  //pembuatan object
+                subject.setSubjectName(a.getSubjectName());  // mengulang mengisi
+                subject.setMarksObtained(a.getMarksObtained()); // mengulang mengisi
                 subject.setSiswa(siswa);
 
                 subjectList.add(subject);
 
             }
-            subjectRepository.saveAll(subjectList);
+            subjectRepository.saveAll(subjectList);  //menyimpan
         }
-        siswa.setLearningSubjects(subjectList);
+        siswa.setLearningSubjects(subjectList); //set learing subeject ke siswa
 
-        return siswa;
+        return siswa; //kembalian
 
     }
 
-       public Siswa updateSiswa (UpdateSiswaRequest updateSiswaRequest){
-       Siswa siswa =  siswaRepository.findById(updateSiswaRequest.getId()).get();
+       public Siswa updateSiswa (UpdateSiswaRequest updateSiswaRequest){ //method
+       Siswa siswa =  siswaRepository.findById(updateSiswaRequest.getId()).get();  //update berdasarkan id
 
-        if (updateSiswaRequest.getFirstName() != null &&
+        if (updateSiswaRequest.getFirstName() != null &&  //tidak null tidak kosong
         !updateSiswaRequest.getFirstName().isEmpty()){
-            siswa.setFirstName(updateSiswaRequest.getFirstName());
+            siswa.setFirstName(updateSiswaRequest.getFirstName());  //repo siswa di set sesuai update siswa request.firstname
         }
 
-        siswa = siswaRepository.save(siswa);
-        return siswa;
+        siswa = siswaRepository.save(siswa);  //siwa di simpan d update di repo
+        return siswa; //megembalikan siswa
        }
+
+
 
        public String deleteSiswa(long id){
         siswaRepository.deleteById(id);

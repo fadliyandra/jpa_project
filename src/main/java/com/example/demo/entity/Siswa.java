@@ -34,7 +34,7 @@ public class Siswa {
     private String email;
 
 
-    //@OneToOne(fetch = FetchType.LAZY) ???
+
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
