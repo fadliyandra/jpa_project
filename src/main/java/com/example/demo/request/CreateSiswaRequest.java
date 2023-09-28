@@ -10,10 +10,10 @@ import java.util.List;
 
 @Setter
 @Getter
-public class CreateSiswaRequest {
+public class CreateSiswaRequest {  //represenyasi data untuk membuat data baru
 
-    @JsonProperty("first_name")
-    @NotBlank(message = "tidak  boleh kosong")
+    @JsonProperty("first_name") //mapping
+    @NotBlank(message = "tidak  boleh kosong")  //anotasi validasi
     private String firstName;
 
     private String lastName;
@@ -24,7 +24,7 @@ public class CreateSiswaRequest {
 
     private String city;
 
-    private List<CreateSubjectRequest> subjectsLearning;
+    private List<CreateSubjectRequest> subjectsLearning;  //object list subject
 
 
 

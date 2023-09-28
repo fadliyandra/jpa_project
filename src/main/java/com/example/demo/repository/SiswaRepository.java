@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-@Repository
-public interface SiswaRepository extends JpaRepository<Siswa, Long> {
+@Repository  //mengkases dan mengelola data
+public interface SiswaRepository extends JpaRepository<Siswa, Long> {   //crud
 
   List<Siswa>findByFirstName(String firstname);
 

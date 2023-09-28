@@ -11,9 +11,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@AllArgsConstructor //constructor dengan semua property
 //@Data
-@ToString
+@ToString  //representasi dari strig object
 public class SiswaResponse {
 
 
@@ -22,7 +22,7 @@ public class SiswaResponse {
     @JsonProperty("first_name")
     private String firstName;
 
-    private String lastName;
+    private String lastName;    //field response
 
     private String email;
 
@@ -33,7 +33,7 @@ public class SiswaResponse {
     private List<SubjectResponse> learningSubjects;
 
 
-    public SiswaResponse (Siswa siswa){
+    public SiswaResponse (Siswa siswa){  //constructor membuat object berdasarkan data dari siswa
 
         this.id = siswa.getId();
         this.firstName= siswa.getFirstName();
@@ -44,7 +44,7 @@ public class SiswaResponse {
         this.city = siswa.getAddress().getCity();
 
         if (siswa.getLearningSubjects() != null){
-            learningSubjects = new ArrayList<SubjectResponse>();
+            learningSubjects = new ArrayList<SubjectResponse>(); //object array list kosong dari subject response untuk menyompan sibejct response
             for (Subject subject : siswa.getLearningSubjects()){
                 learningSubjects.add(new SubjectResponse(subject));
             }

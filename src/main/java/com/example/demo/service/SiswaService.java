@@ -92,6 +92,11 @@ public class SiswaService {
         return "Siswa has been delete sukses";
        }
 
+       public String deleteSubject(long id){  //method dengan prameter id
+        subjectRepository.deleteById(id); //untuk menghapus entitas dari basis data
+        return "subject di delete"; //return kembalian
+       }
+
        public List<Siswa> getByFirstName (String firstName){
         return siswaRepository.findByFirstName(firstName);
        }
